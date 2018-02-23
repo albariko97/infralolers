@@ -24,7 +24,7 @@ public class Cliente extends Thread implements Runnable {
 			buffer.colocar(this,m);
 		}
 		
-		System.out.println("Terminé me voy a mimir");
+		System.out.println("Era un señor cliente terminé me voy a mimir");
 
 	}	
 

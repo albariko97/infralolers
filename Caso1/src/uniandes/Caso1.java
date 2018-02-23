@@ -15,6 +15,7 @@ public class Caso1 {
 	public static void main(String[] args)
 	{		
 		try {
+			//Cargamos la configuracion del archivo propiedades.txt
 			File propiedades=new File("data/propiedades.txt");
 			FileReader fr = new FileReader(propiedades);
 			BufferedReader lector = new BufferedReader(fr);
@@ -22,16 +23,21 @@ public class Caso1 {
 
 			String lineaActual = lector.readLine();		
 			
+			//Cada linea hasta que haya un espacio tendra un numero, que representa el numero de consultas que hace el cliente
 			while(lineaActual != null)
 			{	
 				Cliente c=new Cliente(Integer.parseInt(lineaActual),buffer);
 				tempClientes.add(c);
 				lineaActual = lector.readLine();
 			}
+			//Leemos el espacio para acceder al numero de servidores
+			
 			lector.readLine();
 			numServidores=Integer.parseInt(lector.readLine());
 			lector.close();
 			int max;
+			
+			//En un for hacemos la inicializacion de los threads cliente y servidor
 			if(numServidores<=tempClientes.size())
 			{
 				max=tempClientes.size();

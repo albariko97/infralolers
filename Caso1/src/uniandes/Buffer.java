@@ -19,6 +19,7 @@ public class Buffer {
 
 	public synchronized boolean responder() {
 
+		//si ya no hay clientes se termina
 		if(numClientes==0)
 			return false;
 		while (capActual==0) {
@@ -26,9 +27,9 @@ public class Buffer {
 				wait();
 			} catch (InterruptedException e) {}
 		}
-		capActual--;
-		Mensaje m=buffer.remove(0);
-		m.notify();
+		//El servidor toma el mensaje y le suma 1 (responde)
+		buffer.get(0).responder();
+		buffer.get(0).notify();
 		return true;
 	}
 
@@ -37,19 +38,22 @@ public class Buffer {
 		while (capActual==capMax) {
 			c.yield();
 		}
+		//Guardamos la respuesta esperada para que pueda retirarse
 		int respEsperada=m.getContenido()+1;
 		buffer.add(m);
 		capActual++;
-		while(m.getContenido()!=respEsperada) //esto no esta bien
+		while(m.getContenido()!=respEsperada) 
 		{
 			try {
 				m.wait();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-		}		
+		}	
+		capActual--;
+		buffer.remove(0);
 		numClientes--;
-		
+		notifyAll();		
 	}
 	
 	
