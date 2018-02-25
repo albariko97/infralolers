@@ -21,11 +21,12 @@ public class Caso1 {
 			BufferedReader lector = new BufferedReader(fr);
 			ArrayList<Cliente> tempClientes=new ArrayList<Cliente>();
 
-			String lineaActual = lector.readLine();		
+			String lineaActual = lector.readLine();	
 			
 			//Cada linea hasta que haya un espacio tendra un numero, que representa el numero de consultas que hace el cliente
-			while(lineaActual != null)
+			while(lineaActual.equals(""))
 			{	
+				System.out.println(lineaActual);
 				Cliente c=new Cliente(Integer.parseInt(lineaActual),buffer);
 				tempClientes.add(c);
 				lineaActual = lector.readLine();
@@ -40,15 +41,16 @@ public class Caso1 {
 			//En un for hacemos la inicializacion de los threads cliente y servidor
 			if(numServidores<=tempClientes.size())
 			{
+				// moddificado para revisar orden de creacion de el cliente y los servidores.
 				max=tempClientes.size();
 				for(int i=0;i<max;i++)
 				{
+					tempClientes.get(i).start();
 					if(i<numServidores){
 						Servidor s;
 						s=new Servidor(buffer);
 						s.start();
 					}
-					tempClientes.get(i).start();
 				}
 			}
 			else
