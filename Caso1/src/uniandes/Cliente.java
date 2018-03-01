@@ -33,7 +33,7 @@ public class Cliente extends Thread implements Runnable {
 		while(contador<=numConsultas)
 		{
 			Mensaje m=new Mensaje(contador);
-			
+
 			synchronized (m) {
 				try {
 					buffer.colocar(m);
@@ -44,15 +44,11 @@ public class Cliente extends Thread implements Runnable {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}
-
-			
+			}			
 			contador++;
 		}
-
 		buffer.retirarCliente();
 		System.out.println("El cliente "+id+" acaba su ejecucion.");
-
 	}	
 
 
