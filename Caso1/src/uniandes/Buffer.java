@@ -14,7 +14,7 @@ public class Buffer {
 	//Capacidad limitada del buffer
 	private int capMax;
 	//Estructura que almacena los mensajes
-	private ArrayList<Mensaje> buffer;
+	private static ArrayList<Mensaje> buffer;
 	
 	
 	/**
@@ -51,9 +51,10 @@ public class Buffer {
 		Mensaje m = buffer.remove(0);
 		m.responder();
 		
-		synchronized (this) 
+		
+		synchronized (m) 
 		{
-			notifyAll();
+			m.notify();
 		}
 		return true;
 	}
@@ -71,13 +72,13 @@ public class Buffer {
 		buffer.add(m);
 		notifyAll();
 		
-		synchronized (this) {			
-			try {
-				wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}			
-		}		
+//		synchronized (this) {			
+//			try {
+//				wait();
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}			
+//		}		
 	}
 	
 	/**

@@ -8,11 +8,11 @@ import java.util.Random;
  *
  */
 public class Cliente extends Thread implements Runnable {
-	
+
 	private int numConsultas;
 	private static Buffer buffer;
 	private int id;
-	
+
 	/**
 	 * Constructor del Cliente
 	 * @param n Numero de consultas, asignadas en el archivo propiedades.txt
@@ -28,19 +28,30 @@ public class Cliente extends Thread implements Runnable {
 
 	@Override
 	public void run() {
-		
+
 		int contador=1;
 		while(contador<=numConsultas)
 		{
 			Mensaje m=new Mensaje(contador);
-			buffer.colocar(m);
-			//Cuando llega aquí es porque el mensaje ya ha cambiado
-			System.out.println("Id de cliente: "+id+" : Mensaje Original: "+contador+", Mensaje respondido: "+m.getContenido());
+			
+			synchronized (m) {
+				try {
+					buffer.colocar(m);
+					m.wait();
+					//Cuando llega aquï¿½ es porque el mensaje ya ha cambiado
+					System.out.println("Id de cliente: "+id+" : Mensaje Original: "+contador+", Mensaje respondido: "+m.getContenido());
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+			
 			contador++;
 		}
-		
+
 		buffer.retirarCliente();
-		System.out.println("El cliente "+id+" acaba su ejecución.");
+		System.out.println("El cliente "+id+" acaba su ejecuciï¿½n.");
 
 	}	
 
