@@ -71,14 +71,6 @@ public class Buffer {
 		
 		buffer.add(m);
 		notifyAll();
-		
-//		synchronized (this) {			
-//			try {
-//				wait();
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}			
-//		}		
 	}
 	
 	/**

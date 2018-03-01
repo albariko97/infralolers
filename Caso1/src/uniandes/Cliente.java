@@ -38,7 +38,7 @@ public class Cliente extends Thread implements Runnable {
 				try {
 					buffer.colocar(m);
 					m.wait();
-					//Cuando llega aqu� es porque el mensaje ya ha cambiado
+					//Cuando llega aqui es porque el mensaje ya ha cambiado
 					System.out.println("Id de cliente: "+id+" : Mensaje Original: "+contador+", Mensaje respondido: "+m.getContenido());
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
@@ -51,7 +51,7 @@ public class Cliente extends Thread implements Runnable {
 		}
 
 		buffer.retirarCliente();
-		System.out.println("El cliente "+id+" acaba su ejecuci�n.");
+		System.out.println("El cliente "+id+" acaba su ejecucion.");
 
 	}	
 

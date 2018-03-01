@@ -47,7 +47,6 @@ public class Caso1 {
 			
 			while(!lineaActual.equals(""))
 			{	
-				System.out.println(lineaActual);
 				Cliente c=new Cliente(Integer.parseInt(lineaActual),buffer,contadorId);
 				tempClientes.add(c);
 				lineaActual = lector.readLine();
@@ -61,18 +60,15 @@ public class Caso1 {
 				throw new Exception("Error: Se esperaban "+numClientes+" clientes y se inicializaron "+contadorClientes+".\nEl número de clientes está al inicio de propiedades.txt");
 			}
 			
-			//Leemos el espacio para acceder al numero de servidores			
-			
-			System.out.println("Linea actual: "+lineaActual);
+			//Leemos el numero de servidores			
 			numServidores=Integer.parseInt(lector.readLine());
 			System.out.println("Se crearan "+numServidores+" servidores");
 			lector.close();
 			int max;
 			
-			//En un for hacemos la inicializacion de los threads cliente y servidor
+			//En un solo for hacemos la inicializacion de los threads cliente y servidor
 			if(numServidores<=tempClientes.size())
 			{
-				// moddificado para revisar orden de creacion de el cliente y los servidores.
 				max=tempClientes.size();
 				for(int i=0;i<max;i++)
 				{
