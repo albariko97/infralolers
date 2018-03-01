@@ -7,7 +7,7 @@ package uniandes;
  */
 public class Servidor extends Thread implements Runnable {
 	
-	private Buffer buffer;
+	private static Buffer buffer;
 	
 	/**
 	 * Constructor del servidor
